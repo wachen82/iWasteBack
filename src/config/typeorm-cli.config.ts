@@ -24,6 +24,4 @@ export default new DataSource({
     entities: [Vendor],
     synchronize:false,
 
-
-
 });
