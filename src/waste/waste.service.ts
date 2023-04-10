@@ -1,8 +1,9 @@
-import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
-import { WasteDto } from './dto/waste.dto';
+import {Injectable} from '@nestjs/common';
+import {WasteDto } from './dto/waste.dto';
 import {Waste} from "./entities/waste.entity";
 import {Repository} from "typeorm";
 import {InjectRepository} from "@nestjs/typeorm";
+
 
 
 
@@ -13,24 +14,10 @@ export class WasteService {
       @InjectRepository(Waste) private wasteRepository:Repository<Waste>) {
   }
   //
-  async getAllWastes(): Promise<Waste[]> {
-    return await this.wasteRepository.find();
-  }
-
-  async getWaste(id: string): Promise<Waste> {
-    const waste = await this.wasteRepository.findOne({where:{id}});
-    if(!waste){
-      throw new HttpException('NOTFOUND', HttpStatus.NOT_FOUND);
-    }
-    return waste;
-
-  }
-
   async createWaste(newWaste:WasteDto): Promise<WasteDto> {
     const waste = new Waste();
-    waste.wasteType.name = newWaste.wasteType.name;
-    waste.wasteType.EWC = newWaste.wasteType.EWC;
-    waste.vendor.name = newWaste.vendor.name;
+    waste.wasteTypeId= newWaste.wasteTypeId;
+    waste.vendorId = newWaste.vendorId;
     waste.quantity = newWaste.quantity;
     waste.receivedOn = newWaste.receivedOn;
 
@@ -39,11 +26,33 @@ export class WasteService {
     return waste;
   }
 
-  async updateWaste(id: string) :Promise<WasteDto> {
-    return ;
+  async getAllWastes(): Promise<Waste[]> {
+
+    return await this.wasteRepository.find();
   }
 
-//   async removeWaste(id: number): Promise<WasteResponse> {
-//     return ;
-// }
+  async getWaste(id: string): Promise<Waste> {
+    const waste =  await this.wasteRepository.findOneBy({id});
+    return waste;
+
+  }
+
+  async updateWaste(id:string, updateWaste:WasteDto) {
+    const waste = await this.wasteRepository.findOneBy({id});
+    waste.receivedOn = updateWaste.receivedOn;
+    waste.quantity = updateWaste.quantity;
+    waste.wasteTypeId = updateWaste.wasteTypeId;
+    waste.vendorId = updateWaste.vendorId;
+
+
+    await this.wasteRepository.save(waste);
+
+    return waste;
+   }
+
+  async removeWaste(id: string) {
+    const removeWaste = await this.wasteRepository.findOneBy({id})
+    await this.wasteRepository.remove(removeWaste)
+    return removeWaste;
+}
 }

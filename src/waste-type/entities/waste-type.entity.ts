@@ -20,6 +20,6 @@ export class WasteType extends BaseEntity implements CreateWasteTypeDto{
     })
     EWC:number;
 
-    @OneToMany(()=>Waste, (waste)=>waste.wasteType)
+    @OneToMany(()=>Waste, (waste)=>waste.wasteTypeId)
     waste:WasteType;
 }

@@ -1,17 +1,17 @@
 import {Vendor} from "../../vendor/entities/vendor.entity";
-import {BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import { WasteDto} from "../dto/waste.dto";
 import {WasteType} from "../../waste-type/entities/waste-type.entity";
 
 @Entity({name:'waste'})
-export class Waste implements WasteDto {
+export class Waste implements WasteDto{
     @PrimaryGeneratedColumn("uuid")
     id:string;
 
 
     @ManyToOne(()=>WasteType, (wasteType)=>wasteType.waste, {cascade:true, eager:true, onDelete:"NO ACTION"})
-    @JoinColumn({name: 'wasteType_id', referencedColumnName: 'id'})
-    wasteType:WasteType;
+    @JoinColumn({name:'wasteTypeId'})
+    wasteTypeId:WasteType;
 
 
     @Column({
@@ -29,8 +29,8 @@ export class Waste implements WasteDto {
 
 
     @ManyToOne(()=>Vendor, (vendor)=>vendor.waste, {cascade:true, eager:true, onDelete:"NO ACTION"})
-    @JoinColumn({name: 'vendor_id', referencedColumnName: 'id'})
-    vendor:Vendor;
+    @JoinColumn({name:'vendorID'})
+    vendorId:Vendor;
 
 
 

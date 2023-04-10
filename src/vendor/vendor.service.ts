@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { VendorDto } from './dto/vendor.dto';
 import {InjectRepository} from "@nestjs/typeorm";
-import {WasteType} from "../waste-type/entities/waste-type.entity";
-import {BaseEntity, Repository} from "typeorm";
+import {Repository} from "typeorm";
 import {Vendor} from "./entities/vendor.entity";
 import {VendorResponse} from "../interfaces/vendor";
 
@@ -25,15 +24,19 @@ export class VendorService {
     return this.vendorRepository.find();
   }
 
-  async getVendor(id: number) {
-    return `This action returns a #${id} vendor`;
+  async getVendor(id: string):Promise<VendorDto> {
+    const vendor =  await this.vendorRepository.findOneBy({id});
+    return vendor;
+
   }
 
-  async updateVendor(id: number, updateVendorDto: VendorDto) {
-    return `This action updates a #${id} vendor`;
+  async updateVendor(id: string, updateVendor: VendorDto) {
+    const vendor =  await this.vendorRepository.findOneBy({id})
+    vendor.name = updateVendor.name;
+
+    await this.vendorRepository.save(vendor)
+    return vendor;
   }
 
-  async removeVendor(id: number) {
-    return `This action removes a #${id} vendor`;
-  }
+
 }

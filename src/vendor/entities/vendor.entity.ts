@@ -12,7 +12,7 @@ export class Vendor {
     name:string;
 
 
-    @OneToMany(()=>Waste, (waste)=>waste.vendor)
+    @OneToMany(()=>Waste, (waste)=>waste.vendorId)
     waste:Waste;
 
 

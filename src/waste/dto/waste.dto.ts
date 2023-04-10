@@ -1,15 +1,12 @@
-import {VendorDto} from "../../vendor/dto/vendor.dto";
-import {IsDate, IsEnum, IsNotEmpty, IsNumber, IsString} from "class-validator";
+import {IsDate, IsNotEmpty, IsNumber, IsString} from "class-validator";
 import {Type} from "class-transformer";
-import {CreateWasteTypeDto} from "../../waste-type/dto/create-waste-type.dto";
-
+import {WasteType} from "../../waste-type/entities/waste-type.entity";
+import {Vendor} from "../../vendor/entities/vendor.entity";
 
 export class WasteDto {
-    @IsNotEmpty()
-    @IsString()
-    wasteType:CreateWasteTypeDto;
 
     @IsNotEmpty()
+    @Type(() => Date)
     @IsDate()
     receivedOn: Date;
 
@@ -17,10 +14,13 @@ export class WasteDto {
     @IsNumber()
     quantity:number;
 
+    @IsNotEmpty()
+    @IsString()
+    wasteTypeId:WasteType;
 
     @IsNotEmpty()
     @IsString()
-    vendor:VendorDto;
+    vendorId:Vendor;
 
 }
 

@@ -5,6 +5,7 @@ import {WasteType} from "./entities/waste-type.entity";
 import {Repository} from "typeorm";
 import {WasteTypeResponse} from "../interfaces/wasteType";
 
+
 @Injectable()
 export class WasteTypeService {
   constructor(
@@ -36,4 +37,12 @@ export class WasteTypeService {
   }
 
 
+  async updateWasteType(id: string, updateWasteType: CreateWasteTypeDto) {
+    const wasteType =  await this.wasteTypeRepository.findOneBy({id})
+    wasteType.name = updateWasteType.name;
+    wasteType.EWC = updateWasteType.EWC
+
+    await this.wasteTypeRepository.save(wasteType)
+    return wasteType;
+  }
 }

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {Controller, Get, Post, Body, Patch, Param, ParseUUIDPipe} from '@nestjs/common';
 import { VendorService } from './vendor.service';
 import { VendorDto } from './dto/vendor.dto';
 
@@ -18,17 +18,13 @@ export class VendorController {
   }
 
   @Get('/:id')
-  getVendor(@Param('id') id: string) {
-    return this.vendorService.getVendor(+id);
+  getVendor(@Param('id', new ParseUUIDPipe()) id: string) {
+    return this.vendorService.getVendor(id);
   }
 
   @Patch('/:id')
-  updateVendor(@Param('id') id: string, @Body() updateVendorDto: VendorDto) {
-    return this.vendorService.updateVendor(+id, updateVendorDto);
+  updateVendor(@Param('id', new ParseUUIDPipe()) id: string, @Body() updatedVendor: VendorDto) {
+    return this.vendorService.updateVendor(id, updatedVendor);
   }
 
-  @Delete('/:id')
-  removeVendor(@Param('id') id: string) {
-    return this.vendorService.removeVendor(+id);
-  }
 }

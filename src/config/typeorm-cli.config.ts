@@ -21,7 +21,7 @@ export default new DataSource({
     database: configService.get<string>('DB_NAME'),
     bigNumberStrings: false,
     logging: configService.get<boolean>('DB_LOGGING'),
-    entities: [Vendor],
+    entities: [Vendor, Waste, WasteType],
     synchronize:false,
 
 });
