@@ -10,6 +10,5 @@ import {Vendor} from "../vendor/entities/vendor.entity";
   imports:[TypeOrmModule.forFeature([Waste, WasteType, Vendor ])],
   controllers: [WasteController],
   providers: [WasteService],
-
 })
 export class WasteModule {}
