@@ -2,7 +2,7 @@ import {Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe} from '
 import { WasteService } from './waste.service';
 import { WasteDto } from './dto/waste.dto';
 
-@Controller('waste')
+@Controller('app/waste')
 export class WasteController{
   constructor(private readonly wasteService: WasteService) {}
 

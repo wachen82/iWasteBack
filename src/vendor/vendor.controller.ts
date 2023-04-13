@@ -3,7 +3,7 @@ import { VendorService } from './vendor.service';
 import { VendorDto } from './dto/vendor.dto';
 
 
-@Controller('vendor')
+@Controller('app/vendor')
 export class VendorController {
   constructor(private readonly vendorService: VendorService) {}
 

@@ -4,7 +4,7 @@ import { CreateWasteTypeDto } from './dto/create-waste-type.dto';
 import { WasteTypeResponse} from "../interfaces/wasteType";
 
 
-@Controller('waste-type')
+@Controller('app/waste-type')
 export class WasteTypeController {
   constructor(private readonly wasteTypeService: WasteTypeService) {}
 
